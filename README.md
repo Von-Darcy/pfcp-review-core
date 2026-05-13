@@ -1,8 +1,6 @@
 # Reduced JAX PF-CP Core for Review-Stage Transparency
 
-This directory contains a reduced, documentation-oriented subset of the JAX implementation used in the manuscript:
-
-`Plasticity-Enabled Growth and Variant Competition of Delta Hydrides in Single-Crystal Alpha-Zr`
+This directory contains a reduced, documentation-oriented subset of a JAX-based phase-field/crystal-plasticity implementation prepared for review-stage transparency.
 
 The purpose of this package is to expose a small core of the numerical structure behind the single-crystal PF-CP model without releasing the full research workflow during peer review.
 
