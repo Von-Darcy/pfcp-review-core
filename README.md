@@ -1,43 +1,56 @@
-# Reduced JAX PF-CP Core for Review-Stage Transparency
+# Reduced JAX PF-CP Core
 
-This directory contains a reduced, documentation-oriented subset of a JAX-based phase-field/crystal-plasticity implementation prepared for review-stage transparency.
+This repository provides a reduced, documentation-oriented implementation of
+the JAX phase-field/crystal-plasticity (PF-CP) model used in the accepted
+manuscript:
 
-The purpose of this package is to expose a small core of the numerical structure behind the single-crystal PF-CP model without releasing the full research workflow during peer review.
+> *Plasticity-Enabled Growth and Variant Competition of Delta Hydrides in
+> Single-Crystal Alpha-Zr*, Journal of Nuclear Materials,
+> manuscript reference JNUMA-D-26-00757 (production reference NUMA 156967).
 
-## What is included
+## Scope
 
-- `reduced_pfcp_core.py`
-  - rotation utilities
-  - material and thermodynamic parameter helpers
-  - smooth interpolation / barrier functions
-  - isotropic and anisotropic Laplacian operators
-  - a small softmax helper used in variant-competition logic
-- `requirements.txt`
+`reduced_pfcp_core.py` contains representative numerical components of the
+model:
 
-## What is intentionally not included
+- crystal-orientation and tensor-rotation utilities;
+- the 12-system alpha-Zr slip geometry used in the model;
+- resolved-shear-stress, phase-weighted CRSS, and rate-dependent slip helpers;
+- material and KKS-type thermodynamic parameter helpers;
+- phase-field interpolation functions and finite-difference operators; and
+- the softmax operation used in the variant-competition implementation.
 
-- full production solver
-- full job-control and monitoring workflow
-- data-processing scripts used for all figures
-- remote submission helpers
-- full polycrystal workflow
-- complete benchmark inputs and output datasets
+This compact release is intended to document the principal implementation
+choices. It is not the complete production solver and does not include cluster
+job control, figure-processing workflows, or the full simulation datasets.
+Consequently, it is not a stand-alone reproduction package for every figure in
+the article.
 
-## Review-stage scope
+## Installation
 
-This release is intentionally incomplete. It is meant to document a limited core of the model structure rather than reproduce the entire computational campaign. The complete codebase will be curated and released after manuscript acceptance.
-
-## Suggested GitHub upload steps
-
-If you want to publish this directory as a standalone repository after logging in on this machine:
+Python 3.10 or later is recommended. For a CPU installation:
 
 ```bash
-cd /Users/fudaixin/SynologyDrive/Program/Zircaloy/Simulation/KKShydride/jax/github_partial_release
-git init
-git add .
-git commit -m "Add reduced JAX PF-CP core for review-stage release"
-gh auth login
-gh repo create <repo-name> --public --source=. --remote=origin --push
+python -m venv .venv
+python -m pip install -r requirements.txt
 ```
 
-If you prefer to keep the repository anonymous during review, create a neutral repository name and avoid profile information that directly identifies the authors.
+JAX accelerator builds are platform-specific; consult the JAX installation
+documentation when GPU support is required.
+
+## Verification
+
+Run the included lightweight checks after installing the dependencies:
+
+```bash
+python smoke_test.py
+```
+
+The script checks the orientation matrix, alpha-Zr Schmid tensors,
+phase-weighted slip resistance, phase-field operators, and variant softmax.
+
+## Repository contents
+
+- `reduced_pfcp_core.py`: reduced model utilities
+- `smoke_test.py`: lightweight numerical checks
+- `requirements.txt`: Python dependencies
